@@ -47,10 +47,9 @@ export function useAuth() {
                     role: userData.role,
                 });
 
-                // Update localStorage with fresh data
-                localStorage.setItem('fullName', userData.id);
-                localStorage.setItem('id', userData.email);
-                localStorage.setItem('email', userData.userName);
+                localStorage.setItem('fullName', userData.fullName);
+                localStorage.setItem('id', userData._id);
+                localStorage.setItem('email', userData.email);
                 localStorage.setItem('role', userData.role);
             } catch (err) {
                 console.error('Auth error:', err);
