@@ -1,14 +1,14 @@
 import styles from "./auth.module.css";
 import { useState } from "react";
-import { authService } from "../../services/auth";
 import { useNavigate } from "react-router-dom";
+import { authService } from "../../services/auth";
 
 const Register = () => {
     const navigate = useNavigate();
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
-        fullname: '',
+        fullName: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -28,7 +28,7 @@ const Register = () => {
         setIsLoading(true);
         setError('');
 
-        if (!formData.fullname || !formData.email || !formData.password || !formData.confirmPassword || !formData.role) {
+        if (!formData.fullName || !formData.email || !formData.password || !formData.confirmPassword || !formData.role) {
             setError("All fields are required, including role selection.");
             setIsLoading(false);
             return;
@@ -60,10 +60,10 @@ const Register = () => {
                     <label htmlFor="fullname" className={styles.label}>Fullname</label>
                     <input
                         className={styles.input}
-                        name="fullname"
+                        name="fullName"
                         type="text"
                         placeholder="Fullname"
-                        value={formData.fullname}
+                        value={formData.fullName}
                         onChange={handleChange}
                         required
                     />

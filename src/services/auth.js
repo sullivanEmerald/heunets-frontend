@@ -12,5 +12,15 @@ export const authService = {
             console.error("Registration error:", error);
             throw error;
         }
+    },
+    async Login(data) {
+        try {
+            const response = await axiosInstance.post('/auth/login', data)
+            return response.data;
+        } catch (error) {
+            console.log('login failed', error)
+            throw error
+        }
     }
 }
+
