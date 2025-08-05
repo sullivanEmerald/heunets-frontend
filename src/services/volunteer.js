@@ -3,9 +3,13 @@ import { axiosInstance } from "../lib/utils";
 
 export const VolunteerService = {
 
-    async PostTasks(data) {
+    async postComment(message, taskId) {
+        const data = {
+            message,
+            taskId
+        }
         try {
-            const response = await axiosInstance.post('/contributors/create', data)
+            const response = await axiosInstance.post('/volunteer/create', data)
             return response.data;
         } catch (error) {
             console.error('error', error)

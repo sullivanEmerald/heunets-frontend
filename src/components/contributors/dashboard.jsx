@@ -26,7 +26,7 @@ const ContributorsDashBoard = () => {
     const onHandleSubmitHandler = async (e) => {
         e.preventDefault();
         setIsLoading(true);
-        isSubmitted(false)
+        setIsSubmitted(false)
         setError('');
 
         if (!formData.title || !formData.description) {

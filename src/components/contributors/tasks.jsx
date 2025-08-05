@@ -30,7 +30,7 @@ const Contibutortasks = () => {
     return (
         <>
             <h3>My Tasks</h3>
-            <section style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: "center", gap: '25px', padding: '20px' }}>
+            <section style={{ display: 'flex', flexWrap: 'wrap', gap: '25px', padding: '20px' }}>
                 {tasks.map((task, index) => (
                     <Singletask key={index} {...task} isVolunteer={false} />
                 ))}

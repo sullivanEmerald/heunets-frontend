@@ -9,12 +9,17 @@ import ContributorsDashBoard from './components/contributors/dashboard'
 import Contibutortasks from './components/contributors/tasks'
 import Task from './components/contributors/task'
 import VolunteerDashboard from './components/volunteers/dashboard'
-
+import { ViewMore } from './components/volunteers/view-more'
+import { useNavigate } from 'react-router-dom'
 function App() {
 
-
+  const navigate = useNavigate()
   return (
     <Routes>
+      {/* <button onClick={() => {
+        localStorage.clear();
+        navigate('/auth/login')
+      }}>logout</button> */}
       <Route path="/" element={<Home />} />
       <Route path='/auth' element={<AuthGuard />}>
         <Route path="login" element={<Login />} />
@@ -29,8 +34,7 @@ function App() {
 
       <Route path="/volunteer" element={<RoleGuard role="volunteer" />}>
         <Route path='dashboard' element={<VolunteerDashboard />} />
-        <Route path="my-posted-tasks" element={<Contibutortasks />} />
-        <Route path="my-posted-tasks/:id" element={<Task />} />
+        <Route path="tasks/:id" element={<ViewMore />} />
       </Route>
     </Routes>
   )
