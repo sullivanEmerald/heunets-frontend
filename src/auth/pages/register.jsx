@@ -11,7 +11,8 @@ const Register = () => {
         fullname: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        role: '', // added role field
     });
 
     const handleChange = (e) => {
@@ -27,11 +28,15 @@ const Register = () => {
         setIsLoading(true);
         setError('');
 
-        if (!formData.fullname || !formData.email || !formData.password || !formData.confirmPassword) {
-            setError("All fields are required");
+        if (!formData.fullname || !formData.email || !formData.password || !formData.confirmPassword || !formData.role) {
+            setError("All fields are required, including role selection.");
+            setIsLoading(false);
+            return;
         }
+
         if (formData.password !== formData.confirmPassword) {
-            setError("Passwoerds do not match. Please try again.");
+            setError("Passwords do not match. Please try again.");
+            setIsLoading(false);
             return;
         }
 
@@ -57,7 +62,7 @@ const Register = () => {
                         className={styles.input}
                         name="fullname"
                         type="text"
-                        placeholder="fullname"
+                        placeholder="Fullname"
                         value={formData.fullname}
                         onChange={handleChange}
                         required
@@ -86,7 +91,6 @@ const Register = () => {
                         onChange={handleChange}
                         value={formData.password}
                     />
-
                 </div>
                 <div className={styles.formGroup}>
                     <label htmlFor="confirmPassword" className={styles.label}>Confirm Password:</label>
@@ -100,12 +104,35 @@ const Register = () => {
                         value={formData.confirmPassword}
                     />
                 </div>
+                <div className={styles.formGroup}>
+                    <label className={styles.label}>Select Role:</label>
+                    <div className={styles.radioGroup}>
+                        <label className={styles.radio}>
+                            <input
+                                type="radio"
+                                name="role"
+                                value="volunteer"
+                                checked={formData.role === 'volunteer'}
+                                onChange={handleChange}
+                            /> Volunteer
+                        </label>
+                        <label className={styles.radio}>
+                            <input
+                                type="radio"
+                                name="role"
+                                value="contributor"
+                                checked={formData.role === 'contributor'}
+                                onChange={handleChange}
+                            /> Contributor
+                        </label>
+                    </div>
+                </div>
                 <button className={styles.button} disabled={isLoading} type="submit">
                     {isLoading ? "Registering..." : "Register"}
                 </button>
             </form>
         </div>
-    )
+    );
 }
 
 export default Register;
