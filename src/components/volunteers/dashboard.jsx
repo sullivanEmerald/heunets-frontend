@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react"
-import { ContributorService } from "../../services/contributor";
-import { Singletask } from "./single-task";
+import { Singletask } from "../contributors/single-task";
+import { VolunteerService } from "../../services/volunteer";
 
-const Contibutortasks = () => {
+const VolunteerDashboard = () => {
     const [isFetching, setIsFetching] = useState(true)
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
         const getMyTasks = async () => {
             try {
-                const data = await ContributorService.getTasks();
+                const data = await VolunteerService.getTasks();
                 console.log(data)
                 setTasks(data)
             } catch (error) {
@@ -30,13 +30,13 @@ const Contibutortasks = () => {
     return (
         <>
             <h3>My Tasks</h3>
-            <section style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: "center", gap: '25px', padding: '20px' }}>
+            <section style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: "center", gap: '10px', padding: '20px', flexDirection: 'column' }}>
                 {tasks.map((task, index) => (
-                    <Singletask key={index} {...task} isVolunteer={false} />
+                    <Singletask key={index} {...task} isVolunteer={true} />
                 ))}
             </section>
         </>
     )
 }
 
-export default Contibutortasks;
+export default VolunteerDashboard;

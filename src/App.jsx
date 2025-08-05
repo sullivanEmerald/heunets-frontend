@@ -8,6 +8,7 @@ import { RoleGuard } from './guards/role-guard'
 import ContributorsDashBoard from './components/contributors/dashboard'
 import Contibutortasks from './components/contributors/tasks'
 import Task from './components/contributors/task'
+import VolunteerDashboard from './components/volunteers/dashboard'
 
 function App() {
 
@@ -22,6 +23,12 @@ function App() {
 
       <Route path="/contributor" element={<RoleGuard role="contributor" />}>
         <Route path='dashboard' element={<ContributorsDashBoard />} />
+        <Route path="my-posted-tasks" element={<Contibutortasks />} />
+        <Route path="my-posted-tasks/:id" element={<Task />} />
+      </Route>
+
+      <Route path="/volunteer" element={<RoleGuard role="volunteer" />}>
+        <Route path='dashboard' element={<VolunteerDashboard />} />
         <Route path="my-posted-tasks" element={<Contibutortasks />} />
         <Route path="my-posted-tasks/:id" element={<Task />} />
       </Route>
