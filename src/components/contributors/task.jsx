@@ -8,7 +8,6 @@ import Comments from "./comments";
 const Task = () => {
     const { id } = useParams();
 
-    console.log(id)
     const [isFetching, setIsFetching] = useState(true)
     const [error, setIsError] = useState('')
     const [task, setTask] = useState({})

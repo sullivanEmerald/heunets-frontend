@@ -29,7 +29,6 @@ function App() {
       <Route path="/contributor" element={<RoleGuard role="contributor" />}>
         <Route path='dashboard' element={<ContributorsDashBoard />} />
         <Route path="my-posted-tasks" element={<Contibutortasks />} />
-        {/* <Route path="my-posted-tasks/:id" element={<Task />} /> */}
         <Route path="tasks/:id/applications" element={<Task />} />
       </Route>
 

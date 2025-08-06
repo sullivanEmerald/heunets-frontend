@@ -2,7 +2,7 @@
 
 const Comments = ({ userId, appliedDate, message }) => {
     return (
-        <div style={{ borderBottom: '1px solid blue' }} >
+        <div style={{ borderBottom: '1px solid crimson' }} >
             <p>{message}</p>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
                 <p>Applied by - {userId.fullName}</p>

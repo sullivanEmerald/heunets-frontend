@@ -1,4 +1,4 @@
-const ViewTasks = ({ title, description, createdAt, id }) => {
+const ViewTasks = ({ title, description, createdAt }) => {
     return (
         <div style={{
             backgroundColor: '#152a4b',
