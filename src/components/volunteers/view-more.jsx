@@ -32,6 +32,7 @@ const ViewMore = () => {
     }, [id]);
 
     const handleComment = async (id) => {
+        if (!id) return;
         if (!comment.trim()) {
             setError('Comment is required');
             return;

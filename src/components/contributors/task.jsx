@@ -15,6 +15,10 @@ const Task = () => {
 
     useEffect(() => {
         const getTask = async () => {
+            if (!id) {
+                return;
+            }
+
             try {
                 const data = await ContributorService.getTask(id)
                 console.log(data)
