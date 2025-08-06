@@ -1,6 +1,4 @@
-
-export const VolunteerSingle = ({ title, description, createdBy, createdAt, id, }) => {
-
+const ViewTasks = ({ title, description, createdAt, id }) => {
     return (
         <div style={{
             backgroundColor: '#152a4b',
@@ -8,10 +6,11 @@ export const VolunteerSingle = ({ title, description, createdBy, createdAt, id, 
             padding: "20px",
             borderRadius: "10px",
             textDecoration: 'none',
-            width: '25%',
+            width: '40%',
             display: 'flex',
             flexDirection: 'column',
-            gap: '10px'
+            gap: '10px',
+            margin: '20px auto'
         }}>
             <p>{title}</p>
             <article>{description}</article>
@@ -22,7 +21,8 @@ export const VolunteerSingle = ({ title, description, createdBy, createdAt, id, 
                     day: 'numeric',
                 })}
             </span>
-            <a style={{ color: 'crimson' }} href={`/volunteer/tasks/${id}`} > Apply </a>
         </div >
-    );
-};
+    )
+}
+
+export default ViewTasks;

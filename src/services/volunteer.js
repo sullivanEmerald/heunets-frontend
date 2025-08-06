@@ -29,7 +29,7 @@ export const VolunteerService = {
 
     async getTask(id) {
         try {
-            const response = await axiosInstance.get(`/contributors/task/${id}`)
+            const response = await axiosInstance.get(`/volunteer/task/${id}`)
             return response.data;
         } catch (error) {
             console.log(error)

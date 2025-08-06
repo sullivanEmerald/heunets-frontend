@@ -1,46 +1,50 @@
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { VolunteerService } from "../../services/volunteer"
-import { VolunteerSingle } from "./volunteerSingle"
+import { useNavigate } from "react-router-dom"
 
-export const ViewMore = () => {
+const ViewMore = () => {
+    const navigate = useNavigate()
     const { id } = useParams()
     const [isFetching, setIsFetching] = useState(true)
+    const [error, setError] = useState('')
     const [task, setTask] = useState({})
-
     const [comment, setComment] = useState('');
 
-    const handleComment = async (id) => {
+    const getTask = async () => {
+        try {
+            const data = await VolunteerService.getTask(id);
+            console.log(data)
+            setTask(data);
+            setError('');
+        } catch (error) {
+            console.log(error);
+            setError(error?.response?.data?.message || 'Could not load task');
+        } finally {
+            setIsFetching(false);
+        }
+    };
 
-        if (!comment) {
-            setError('comment is required')
+    useEffect(() => {
+        if (id) getTask();
+    }, [id]);
+
+    const handleComment = async (id) => {
+        if (!comment.trim()) {
+            setError('Comment is required');
             return;
         }
 
         try {
-            const data = await VolunteerService.postComment(comment, id)
-            console.log(data)
-            setComment('')
+            await VolunteerService.postComment(comment, id);
+            setComment('');
+            setError('');
+            // getTask(); 
         } catch (error) {
-
+            console.log(error);
+            setError(error?.response?.data?.message || 'Could not post comment');
         }
-    }
-
-
-    useEffect(() => {
-        const getTask = async () => {
-            try {
-                const data = await VolunteerService.getTask(id)
-                console.log(data)
-                setTask(data)
-            } catch (error) {
-                console.log(error)
-            } finally {
-                setIsFetching(false)
-            }
-        }
-        getTask()
-    }, [id])
+    };
 
     if (isFetching) return <p>Task is loading......</p>
 
@@ -53,7 +57,8 @@ export const ViewMore = () => {
             flexDirection: 'column',
             gap: '20px'
         }}>
-            <button onClick={() => history.back()}>back</button>
+            <button onClick={() => navigate(-1)}>Back</button>
+            {error && <p>{error}</p>}
             <div style={{
                 backgroundColor: '#152a4b',
                 color: '#fff',
@@ -65,10 +70,10 @@ export const ViewMore = () => {
                 flexDirection: 'column',
                 gap: '10px'
             }}>
-                <p>{task.title}</p>
-                <article>{task.description}</article>
+                <p>{task?.title}</p>
+                <article>{task?.description}</article>
                 <span style={{ textAlign: 'right' }}>
-                    {new Date(task.createdAt).toLocaleDateString('en-US', {
+                    {new Date(task?.createdAt).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric',
@@ -82,10 +87,12 @@ export const ViewMore = () => {
                         placeholder="Enter your comment"
                         style={{ padding: '8px', borderRadius: '5px', border: 'none', width: '100%' }}
                     />
-                    <button onClick={() => handleComment(id)} style={{ width: '50px', height: '50px', borderRadius: '50%', cursor: "pointer", padding: '5px' }}>send</button>
+                    <button onClick={() => handleComment(id)} style={{ width: '50px', height: '50px', borderRadius: '50%', cursor: "pointer", padding: '5px' }}> Apply</button>
                 </div>
             </div >
         </div>
 
     )
 }
+
+export default ViewMore;

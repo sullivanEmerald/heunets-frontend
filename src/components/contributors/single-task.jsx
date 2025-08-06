@@ -1,25 +1,7 @@
 import { useState } from "react";
-import { VolunteerService } from "../../services/volunteer";
+import { ContributorService } from "../../services/contributor";
 
 export const Singletask = ({ title, description, createdBy, createdAt, id, }) => {
-    const [comment, setComment] = useState('');
-
-    const handleComment = async (id) => {
-
-        if (!comment) {
-            setError('comment is required')
-            return;
-        }
-        console.log(comment)
-        console.log(id)
-        try {
-            const data = await VolunteerService.postComment(comment, id)
-            console.log(data)
-        } catch (error) {
-
-        }
-    }
-
 
     return (
         <div style={{
@@ -42,7 +24,7 @@ export const Singletask = ({ title, description, createdBy, createdAt, id, }) =>
                     day: 'numeric',
                 })}
             </span>
-            <a style={{ color: 'crimson' }} href={`/voluteer/tasks/${id}`} >View</a>
+            <a style={{ color: 'crimson' }} href={`/contributor/tasks/${id}/applications`} >View Applications</a>
         </div >
     );
 };

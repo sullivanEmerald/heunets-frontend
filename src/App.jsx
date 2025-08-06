@@ -9,11 +9,11 @@ import ContributorsDashBoard from './components/contributors/dashboard'
 import Contibutortasks from './components/contributors/tasks'
 import Task from './components/contributors/task'
 import VolunteerDashboard from './components/volunteers/dashboard'
-import { ViewMore } from './components/volunteers/view-more'
-import { useNavigate } from 'react-router-dom'
+import ViewMore from './components/volunteers/view-more'
+
+
 function App() {
 
-  const navigate = useNavigate()
   return (
     <Routes>
       {/* <button onClick={() => {
@@ -29,7 +29,8 @@ function App() {
       <Route path="/contributor" element={<RoleGuard role="contributor" />}>
         <Route path='dashboard' element={<ContributorsDashBoard />} />
         <Route path="my-posted-tasks" element={<Contibutortasks />} />
-        <Route path="my-posted-tasks/:id" element={<Task />} />
+        {/* <Route path="my-posted-tasks/:id" element={<Task />} /> */}
+        <Route path="tasks/:id/applications" element={<Task />} />
       </Route>
 
       <Route path="/volunteer" element={<RoleGuard role="volunteer" />}>
