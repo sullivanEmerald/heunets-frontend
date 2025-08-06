@@ -10,16 +10,18 @@ const ViewMore = () => {
     const [error, setError] = useState('')
     const [task, setTask] = useState({})
     const [comment, setComment] = useState('');
+    const [userApplied, setUserApplied] = useState(false)
 
     const getTask = async () => {
         try {
             const data = await VolunteerService.getTask(id);
             console.log(data)
-            setTask(data);
+            setTask(data.task);
+            setUserApplied(data.hasUserCommented)
             setError('');
         } catch (error) {
             console.log(error);
-            setError(error?.response?.data?.message || 'Could not load task');
+            setError(error?.response?.data?.error || 'Could not load task');
         } finally {
             setIsFetching(false);
         }
@@ -37,8 +39,12 @@ const ViewMore = () => {
 
         try {
             await VolunteerService.postComment(comment, id);
+            alert('congratulations. you have applied for this tasks')
             setComment('');
             setError('');
+            setTimeout(() => {
+                navigate('/volunteer/dashboard')
+            }, 1500)
             // getTask(); 
         } catch (error) {
             console.log(error);
@@ -79,16 +85,18 @@ const ViewMore = () => {
                         day: 'numeric',
                     })}
                 </span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'space-between' }}>
-                    <input
-                        type="text"
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                        placeholder="Enter your comment"
-                        style={{ padding: '8px', borderRadius: '5px', border: 'none', width: '100%' }}
-                    />
-                    <button onClick={() => handleComment(id)} style={{ width: '50px', height: '50px', borderRadius: '50%', cursor: "pointer", padding: '5px' }}> Apply</button>
-                </div>
+                {userApplied ? <p style={{ color: 'green' }}>You have already Applied. Wait for Feedback and Congrat.</p> : (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', justifyContent: 'space-between' }}>
+                        <input
+                            type="text"
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            placeholder="Enter your comment"
+                            style={{ padding: '8px', borderRadius: '5px', border: 'none', width: '100%' }}
+                        />
+                        <button onClick={() => handleComment(id)} style={{ width: '50px', height: '50px', borderRadius: '50%', cursor: "pointer", padding: '5px' }}> Apply</button>
+                    </div>
+                )}
             </div >
         </div>
 

@@ -40,10 +40,17 @@ export function RoleGuard({ role }) {
                 <p>{isRedirecting ? redirectMessage : ''}</p>
             ) : user && user.role === role ? (
                 <div key="content" style={{ position: 'relative' }}>
-                    <Link style={{ position: 'absolute', right: '20px', top: '10px' }} to={role === 'contributor' ? '/contributor/dashboard' : '/volunteer/dashboard'}>Home</Link>
+                    <div style={{ position: 'absolute', right: '20px', top: '10px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <Link to={role === 'contributor' ? '/contributor/dashboard' : '/volunteer/dashboard'}>Home</Link>
+                        <button onClick={() => {
+                            localStorage.clear();
+                            navigate('/auth/login')
+                        }}>Logout</button>
+                    </div>
                     <Outlet />
                 </div>
-            ) : null}
-        </div>
+            ) : null
+            }
+        </div >
     )
 }
